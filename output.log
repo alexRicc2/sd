@@ -1,0 +1,258 @@
+ubuntu@ip-172-31-27-179:~$ python3 master.py -n 2048 --seed 42 --comparar-sequencial --json aws_2048.json --workers 172.31.21.176:5001,172.31.19.251:5001
+2026-06-02 19:36:47 | INFO | Modo: distribuído (master)
+2026-06-02 19:36:47 | INFO | Tamanho da matriz: 2048 × 2048
+2026-06-02 19:36:47 | INFO | Workers: 172.31.21.176:5001, 172.31.19.251:5001
+2026-06-02 19:36:47 | INFO | Geração das matrizes: 0.054222 s
+2026-06-02 19:36:47 | INFO | Fatia 0 → linhas 1024 ((1024, 2048))
+2026-06-02 19:36:47 | INFO | Fatia 1 → linhas 1024 ((1024, 2048))
+2026-06-02 19:36:47 | INFO | T0→T1 | Fatiamento e preparo: 0.000388 s
+2026-06-02 19:36:50 | INFO | Worker 172.31.21.176:5001 | ↑ 48.00 MB | rede↑ 0.197216 s | serialização↑ 0.048246 s
+2026-06-02 19:36:50 | INFO | Worker 172.31.19.251:5001 | ↑ 48.00 MB | rede↑ 0.149033 s | serialização↑ 0.097163 s
+
+============================================================
+RELATORIO DE TELEMETRIA - MULTIPLICACAO DISTRIBUIDA
+============================================================
+Matriz: 2048x2048 | Workers: 2
+Destinos: 172.31.21.176:5001, 172.31.19.251:5001
+
+--- Tempos (s) ---
+  T0->T1  Fatiamento/preparo:                0.000388
+  T1->T3  Orquestracao (rede+remontagem):    3.491303
+    |- Serializacao (master):                0.145409
+    |- Socket envio (master):                0.346249
+    |- Socket recebimento (master):          6.211832
+    `- Deserializacao respostas (master):    0.014683
+  T3-T0  Tempo total distribuido:            3.491691
+
+--- Trafego de rede ---
+  Worker 0 (172.31.21.176:5001): envio   48.00 MB  retorno   16.00 MB  vazao_envio  195.6 MB/s  vazao_retorno  104.9 MB/s
+           serializacao 0.048246s | rede pura 0.685391s | calculo worker 2.889394s | latencia E2E 3.041946s
+  Worker 1 (172.31.19.251:5001): envio   48.00 MB  retorno   16.00 MB  vazao_envio  195.0 MB/s  vazao_retorno  100.1 MB/s
+           serializacao 0.097163s | rede pura 0.643661s | calculo worker 3.010060s | latencia E2E 3.169886s
+  TOTAL: envio 96.00 MB  retorno 32.00 MB  vazao_envio 195.3 MB/s  vazao_retorno 102.4 MB/s
+
+--- CPU isolada nos workers (s) ---
+  Worker 0: calculo=2.889394s
+  Worker 1: calculo=3.010060s
+
+--- Comparacao com baseline sequencial ---
+  Tempo total sequencial:       7.242097 s
+  Tempo multiplicacao (seq.):   7.242094 s
+  Tempo CPU sequencial:         7.241325 s
+  Speedup (seq/dist):           2.074x
+  Eficiencia (speedup/workers): 103.7%
+  Overhead distribuido:         -3.750402 s (rede+serializacao+sync)
+
+--- Recursos (master) ---
+  Memoria RSS: 201.34 MB (delta 169.86 MB)
+  Tempo CPU:   13.456364 s
+  CPU amostra: 0.0%
+
+Integridade: OK
+============================================================
+2026-06-02 19:37:03 | INFO | Relatório JSON salvo em aws_2048.json
+ubuntu@ip-172-31-27-179:~$ cat aws_2048.json
+{
+  "tamanho": 2048,
+  "n_workers": 2,
+  "workers_endereco": [
+    "172.31.21.176:5001",
+    "172.31.19.251:5001"
+  ],
+  "tempo_fatiamento_s": 0.0003884920006385073,
+  "tempo_total_s": 3.4916912660119124,
+  "tempo_orquestracao_s": 3.491302774011274,
+  "tempo_serializacao_master_s": 0.14540936701814644,
+  "tempo_socket_envio_master_s": 0.34624905200325884,
+  "tempo_socket_recebimento_master_s": 6.211831929991604,
+  "tempo_deserializacao_master_s": 0.014683329995023087,
+  "bytes_enviados_total": 100663732,
+  "bytes_recebidos_total": 33555200,
+  "vazao_envio_total_mb_s": 195.258358421037,
+  "vazao_recebimento_total_mb_s": 102.4421939333083,
+  "workers": [
+    {
+      "indice": 0,
+      "host": "172.31.21.176",
+      "porta": 5001,
+      "bytes_enviados": 50331866,
+      "bytes_recebidos": 16777600,
+      "tempo_serializacao_envio_s": 0.048246083009871654,
+      "tempo_socket_envio_s": 0.19721631400170736,
+      "tempo_espera_resposta_s": 3.0419461540004704,
+      "tempo_deserializacao_resposta_s": 0.011077557996031828,
+      "tempo_recebimento_requisicao_s": 0.34713408300012816,
+      "tempo_deserializacao_requisicao_s": 0.035274531997856684,
+      "tempo_calculo_s": 2.889393885008758,
+      "tempo_serializacao_resposta_s": 0.011511653996421956,
+      "tempo_envio_resposta_s": 0.14104061499529053,
+      "vazao_envio_mb_s": 195.55014733575138,
+      "vazao_retorno_mb_s": 104.88448527636605,
+      "tempo_comunicacao_pura_s": 0.685391011997126
+    },
+    {
+      "indice": 1,
+      "host": "172.31.19.251",
+      "porta": 5001,
+      "bytes_enviados": 50331866,
+      "bytes_recebidos": 16777600,
+      "tempo_serializacao_envio_s": 0.09716328400827479,
+      "tempo_socket_envio_s": 0.14903273800155148,
+      "tempo_espera_resposta_s": 3.1698857759911334,
+      "tempo_deserializacao_resposta_s": 0.0036057719989912584,
+      "tempo_recebimento_requisicao_s": 0.3461520210112212,
+      "tempo_deserializacao_requisicao_s": 0.035256742005003616,
+      "tempo_calculo_s": 3.010059608001029,
+      "tempo_serializacao_resposta_s": 0.011350133005180396,
+      "tempo_envio_resposta_s": 0.1484760349849239,
+      "vazao_envio_mb_s": 194.96743899089148,
+      "vazao_retorno_mb_s": 100.11105447969052,
+      "tempo_comunicacao_pura_s": 0.6436607939976966
+    }
+  ],
+  "recursos_master": {
+    "memoria_rss_mb": 201.33984375,
+    "delta_memoria_mb": 169.86328125,
+    "tempo_cpu_s": 13.456364157,
+    "cpu_percent_amostra": 0.0
+  },
+  "sequencial": {
+    "tempo_total_s": 7.24209745900589,
+    "tempo_multiplicacao_s": 7.242093743989244,
+    "tempo_cpu_s": 7.241325403,
+    "memoria_rss_mb": 63.484375
+  },
+  "speedup": 2.074094445147655,
+  "eficiencia": 103.70472225738274,
+  "integridade_ok": true
+}ubuntu@ip-172-31-27-179:~$
+
+
+
+ubuntu@ip-172-31-27-179:~$ python3 master.py -n 4096 --seed 42 --comparar-sequencial --json aws_4096.json --workers 172.31.21.176:5001,172.31.19.251:5001
+2026-06-02 20:11:04 | INFO | Modo: distribuído (master)
+2026-06-02 20:11:04 | INFO | Tamanho da matriz: 4096 × 4096
+2026-06-02 20:11:04 | INFO | Workers: 172.31.21.176:5001, 172.31.19.251:5001
+2026-06-02 20:11:05 | INFO | Geração das matrizes: 0.268999 s
+2026-06-02 20:11:05 | INFO | Fatia 0 → linhas 2048 ((2048, 4096))
+2026-06-02 20:11:05 | INFO | Fatia 1 → linhas 2048 ((2048, 4096))
+2026-06-02 20:11:05 | INFO | T0→T1 | Fatiamento e preparo: 0.000335 s
+Killed                     python3 master.py -n 4096 --seed 42 --comparar-sequencial --json aws_4096.json --workers 172.31.21.176:5001,172.31.19.251:5001
+ubuntu@ip-172-31-27-179:~$ python3 master.py -n 2048 --seed 42 --comparar-sequencial --
+json aws_4096.json --workers 172.31.21.176:5001,172.31.19.251:5001
+2026-06-02 20:13:04 | INFO | Modo: distribuído (master)
+2026-06-02 20:13:04 | INFO | Tamanho da matriz: 2048 × 2048
+2026-06-02 20:13:04 | INFO | Workers: 172.31.21.176:5001, 172.31.19.251:5001
+2026-06-02 20:13:04 | INFO | Geração das matrizes: 0.136455 s
+2026-06-02 20:13:04 | INFO | Fatia 0 → linhas 1024 ((1024, 2048))
+2026-06-02 20:13:04 | INFO | Fatia 1 → linhas 1024 ((1024, 2048))
+2026-06-02 20:13:04 | INFO | T0→T1 | Fatiamento e preparo: 0.000366 s
+2026-06-02 20:13:07 | INFO | Worker 172.31.21.176:5001 | ↑ 48.00 MB | rede↑ 0.152514 s | serialização↑ 0.102494 s
+2026-06-02 20:13:08 | INFO | Worker 172.31.19.251:5001 | ↑ 48.00 MB | rede↑ 0.204054 s | serialização↑ 0.048641 s
+
+============================================================
+RELATORIO DE TELEMETRIA - MULTIPLICACAO DISTRIBUIDA
+============================================================
+Matriz: 2048x2048 | Workers: 2
+Destinos: 172.31.21.176:5001, 172.31.19.251:5001
+
+--- Tempos (s) ---
+  T0->T1  Fatiamento/preparo:                0.000366
+  T1->T3  Orquestracao (rede+remontagem):    3.904225
+    |- Serializacao (master):                0.151135
+    |- Socket envio (master):                0.356568
+    |- Socket recebimento (master):          6.768555
+    `- Deserializacao respostas (master):    0.015248
+  T3-T0  Tempo total distribuido:            3.904591
+
+--- Trafego de rede ---
+  Worker 0 (172.31.21.176:5001): envio   48.00 MB  retorno   16.00 MB  vazao_envio  188.2 MB/s  vazao_retorno  107.1 MB/s
+           serializacao 0.102494s | rede pura 0.646788s | calculo worker 3.055477s | latencia E2E 3.204813s
+  Worker 1 (172.31.19.251:5001): envio   48.00 MB  retorno   16.00 MB  vazao_envio  190.0 MB/s  vazao_retorno   93.1 MB/s
+           serializacao 0.048641s | rede pura 0.721945s | calculo worker 3.391800s | latencia E2E 3.563741s
+  TOTAL: envio 96.00 MB  retorno 32.00 MB  vazao_envio 189.1 MB/s  vazao_retorno 99.6 MB/s
+
+--- CPU isolada nos workers (s) ---
+  Worker 0: calculo=3.055477s
+  Worker 1: calculo=3.391800s
+
+--- Comparacao com baseline sequencial ---
+  Tempo total sequencial:       5.927751 s
+  Tempo multiplicacao (seq.):   5.927747 s
+  Tempo CPU sequencial:         5.926941 s
+  Speedup (seq/dist):           1.518x
+  Eficiencia (speedup/workers): 75.9%
+  Overhead distribuido:         -2.023156 s (rede+serializacao+sync)
+
+--- Recursos (master) ---
+  Memoria RSS: 205.46 MB (delta 174.70 MB)
+  Tempo CPU:   12.163696 s
+  CPU amostra: 0.0%
+
+Integridade: OK
+============================================================
+2026-06-02 20:13:20 | INFO | Relatório JSON salvo em aws_4096.json
+ubuntu@ip-172-31-27-179:~$ python3 sequencial.py -n 512 --seed 42
+2026-06-02 20:14:04 | INFO | Modo: sequencial (baseline)
+2026-06-02 20:14:04 | INFO | Tamanho da matriz: 512 × 512
+2026-06-02 20:14:04 | INFO | T0→T1 | Geração das matrizes: 0.014855 s
+2026-06-02 20:14:04 | INFO | T1→T2 | Multiplicação local: 0.050335 s (CPU: 0.050325 s)
+2026-06-02 20:14:05 | INFO | T2→T3 | Validação: 0.000178 s | resultado=True
+2026-06-02 20:14:05 | INFO | T3−T0 | Tempo total (relógio): 0.065581 s
+2026-06-02 20:14:05 | INFO | T3−T0 | Tempo CPU do processo: 0.121774 s
+2026-06-02 20:14:05 | INFO | Memória RSS: 44.21 MB (Δ 13.94 MB)
+2026-06-02 20:14:05 | INFO | CPU do processo (amostra): 0.0%
+ubuntu@ip-172-31-27-179:~$ python3 master.py -n 512 --seed 42 --comparar-sequencial --j
+son aws_512.json --workers 172.31.21.176:5001,172.31.19.251:5001
+2026-06-02 20:14:21 | INFO | Modo: distribuído (master)
+2026-06-02 20:14:21 | INFO | Tamanho da matriz: 512 × 512
+2026-06-02 20:14:21 | INFO | Workers: 172.31.21.176:5001, 172.31.19.251:5001
+2026-06-02 20:14:21 | INFO | Geração das matrizes: 0.013072 s
+2026-06-02 20:14:21 | INFO | Fatia 0 → linhas 256 ((256, 512))
+2026-06-02 20:14:21 | INFO | Fatia 1 → linhas 256 ((256, 512))
+2026-06-02 20:14:21 | INFO | T0→T1 | Fatiamento e preparo: 0.000349 s
+2026-06-02 20:14:21 | INFO | Worker 172.31.19.251:5001 | ↑ 3.00 MB | rede↑ 0.005945 s | serialização↑ 0.002417 s
+2026-06-02 20:14:21 | INFO | Worker 172.31.21.176:5001 | ↑ 3.00 MB | rede↑ 0.007343 s | serialização↑ 0.003126 s
+
+============================================================
+RELATORIO DE TELEMETRIA - MULTIPLICACAO DISTRIBUIDA
+============================================================
+Matriz: 512x512 | Workers: 2
+Destinos: 172.31.21.176:5001, 172.31.19.251:5001
+
+--- Tempos (s) ---
+  T0->T1  Fatiamento/preparo:                0.000349
+  T1->T3  Orquestracao (rede+remontagem):    0.053664
+    |- Serializacao (master):                0.005543
+    |- Socket envio (master):                0.013288
+    |- Socket recebimento (master):          0.062487
+    `- Deserializacao respostas (master):    0.000327
+  T3-T0  Tempo total distribuido:            0.054014
+
+--- Trafego de rede ---
+  Worker 0 (172.31.21.176:5001): envio    3.00 MB  retorno    1.00 MB  vazao_envio  286.6 MB/s  vazao_retorno  120.1 MB/s
+           serializacao 0.003126s | rede pura 0.036301s | calculo worker 0.023863s | latencia E2E 0.032192s
+  Worker 1 (172.31.19.251:5001): envio    3.00 MB  retorno    1.00 MB  vazao_envio  358.8 MB/s  vazao_retorno  164.7 MB/s
+           serializacao 0.002417s | rede pura 0.023786s | calculo worker 0.024222s | latencia E2E 0.030295s
+  TOTAL: envio 6.00 MB  retorno 2.00 MB  vazao_envio 318.7 MB/s  vazao_retorno 138.9 MB/s
+
+--- CPU isolada nos workers (s) ---
+  Worker 0: calculo=0.023863s
+  Worker 1: calculo=0.024222s
+
+--- Comparacao com baseline sequencial ---
+  Tempo total sequencial:       0.061729 s
+  Tempo multiplicacao (seq.):   0.061725 s
+  Tempo CPU sequencial:         0.061713 s
+  Speedup (seq/dist):           1.143x
+  Eficiencia (speedup/workers): 57.1%
+  Overhead distribuido:         -0.007712 s (rede+serializacao+sync)
+
+--- Recursos (master) ---
+  Memoria RSS: 49.98 MB (delta 18.88 MB)
+  Tempo CPU:   0.160131 s
+  CPU amostra: 0.0%
+
+Integridade: OK
+============================================================
+2026-06-02 20:14:22 | INFO | Relatório JSON salvo em aws_512.json

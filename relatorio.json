@@ -1,0 +1,68 @@
+{
+  "tamanho": 512,
+  "n_workers": 2,
+  "workers_endereco": [
+    "127.0.0.1:5001",
+    "127.0.0.1:5002"
+  ],
+  "tempo_fatiamento_s": 0.0003687999560497701,
+  "tempo_total_s": 0.0439205999718979,
+  "tempo_orquestracao_s": 0.04355180001584813,
+  "tempo_serializacao_master_s": 0.0040345999877899885,
+  "tempo_socket_envio_master_s": 0.005131000012625009,
+  "tempo_socket_recebimento_master_s": 0.05811500002164394,
+  "tempo_deserializacao_master_s": 0.0011051999754272401,
+  "bytes_enviados_total": 6291892,
+  "bytes_recebidos_total": 2097958,
+  "vazao_envio_total_mb_s": 654.6669941662595,
+  "vazao_recebimento_total_mb_s": 33.785239860688996,
+  "workers": [
+    {
+      "indice": 0,
+      "host": "127.0.0.1",
+      "porta": 5001,
+      "bytes_enviados": 3145946,
+      "bytes_recebidos": 1048979,
+      "tempo_serializacao_envio_s": 0.0018430000054650009,
+      "tempo_socket_envio_s": 0.004057799989823252,
+      "tempo_socket_recebimento_s": 0.02832209999905899,
+      "tempo_deserializacao_s": 0.0006005999748595059,
+      "tempo_serializacao_resposta_s": 0.0,
+      "tempo_socket_resposta_s": 0.0,
+      "tempo_calculo_s": 0.014281000010669231,
+      "vazao_envio_mb_s": 508.44087299969857,
+      "vazao_recebimento_mb_s": 34.58820689809818
+    },
+    {
+      "indice": 1,
+      "host": "127.0.0.1",
+      "porta": 5002,
+      "bytes_enviados": 3145946,
+      "bytes_recebidos": 1048979,
+      "tempo_serializacao_envio_s": 0.0021915999823249876,
+      "tempo_socket_envio_s": 0.0010732000228017569,
+      "tempo_socket_recebimento_s": 0.029792900022584945,
+      "tempo_deserializacao_s": 0.0005046000005677342,
+      "tempo_serializacao_resposta_s": 0.0,
+      "tempo_socket_resposta_s": 0.0,
+      "tempo_calculo_s": 0.011581200000364333,
+      "vazao_envio_mb_s": 918.9561064352253,
+      "vazao_recebimento_mb_s": 33.01870880386303
+    }
+  ],
+  "recursos_master": {
+    "memoria_rss_mb": 46.46875,
+    "delta_memoria_mb": 13.578125,
+    "tempo_cpu_s": 0.09375,
+    "cpu_percent_amostra": 0.0
+  },
+  "sequencial": {
+    "tempo_total_s": 0.003371700004208833,
+    "tempo_multiplicacao_s": 0.0033687000395730138,
+    "tempo_cpu_s": 0.0,
+    "memoria_rss_mb": 4.0078125
+  },
+  "speedup": 0.07676807708378704,
+  "eficiencia": 3.8384038541893517,
+  "integridade_ok": true
+}

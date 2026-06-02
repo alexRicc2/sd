@@ -1,0 +1,74 @@
+{
+  "tamanho": 2048,
+  "n_workers": 2,
+  "workers_endereco": [
+    "172.31.21.176:5001",
+    "172.31.19.251:5001"
+  ],
+  "tempo_fatiamento_s": 0.00036555300175677985,
+  "tempo_total_s": 3.904590742997243,
+  "tempo_orquestracao_s": 3.9042251899954863,
+  "tempo_serializacao_master_s": 0.15113523800391704,
+  "tempo_socket_envio_master_s": 0.3565678199956892,
+  "tempo_socket_recebimento_master_s": 6.7685547250148375,
+  "tempo_deserializacao_master_s": 0.015248140989569947,
+  "bytes_enviados_total": 100663732,
+  "bytes_recebidos_total": 33555200,
+  "vazao_envio_total_mb_s": 189.08772419108888,
+  "vazao_recebimento_total_mb_s": 99.60453553170494,
+  "workers": [
+    {
+      "indice": 0,
+      "host": "172.31.21.176",
+      "porta": 5001,
+      "bytes_enviados": 50331866,
+      "bytes_recebidos": 16777600,
+      "tempo_serializacao_envio_s": 0.10249449500406627,
+      "tempo_socket_envio_s": 0.1525140960002318,
+      "tempo_espera_resposta_s": 3.2048132520139916,
+      "tempo_deserializacao_resposta_s": 0.01163629099028185,
+      "tempo_recebimento_requisicao_s": 0.3564135610067751,
+      "tempo_deserializacao_requisicao_s": 0.03532557300059125,
+      "tempo_calculo_s": 3.055476876004832,
+      "tempo_serializacao_resposta_s": 0.01147569200838916,
+      "tempo_envio_resposta_s": 0.13786068400077056,
+      "vazao_envio_mb_s": 188.22976791472863,
+      "vazao_retorno_mb_s": 107.1431264004699,
+      "tempo_comunicacao_pura_s": 0.6467883410077775
+    },
+    {
+      "indice": 1,
+      "host": "172.31.19.251",
+      "porta": 5001,
+      "bytes_enviados": 50331866,
+      "bytes_recebidos": 16777600,
+      "tempo_serializacao_envio_s": 0.04864074299985077,
+      "tempo_socket_envio_s": 0.2040537239954574,
+      "tempo_espera_resposta_s": 3.563741473000846,
+      "tempo_deserializacao_resposta_s": 0.003611849999288097,
+      "tempo_recebimento_requisicao_s": 0.35863903899735305,
+      "tempo_deserializacao_requisicao_s": 0.03579979699861724,
+      "tempo_calculo_s": 3.3917999849945772,
+      "tempo_serializacao_resposta_s": 0.012689131006482057,
+      "tempo_envio_resposta_s": 0.15925235699978657,
+      "vazao_envio_mb_s": 189.9535374547485,
+      "vazao_retorno_mb_s": 93.05704165101886,
+      "tempo_comunicacao_pura_s": 0.721945119992597
+    }
+  ],
+  "recursos_master": {
+    "memoria_rss_mb": 205.46484375,
+    "delta_memoria_mb": 174.703125,
+    "tempo_cpu_s": 12.163696231,
+    "cpu_percent_amostra": 0.0
+  },
+  "sequencial": {
+    "tempo_total_s": 5.927750814997125,
+    "tempo_multiplicacao_s": 5.927746552988538,
+    "tempo_cpu_s": 5.926941168,
+    "memoria_rss_mb": 64.0078125
+  },
+  "speedup": 1.5181490725060889,
+  "eficiencia": 75.90745362530444,
+  "integridade_ok": true
+}

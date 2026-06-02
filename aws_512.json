@@ -1,0 +1,74 @@
+{
+  "tamanho": 512,
+  "n_workers": 2,
+  "workers_endereco": [
+    "172.31.21.176:5001",
+    "172.31.19.251:5001"
+  ],
+  "tempo_fatiamento_s": 0.0003493630065349862,
+  "tempo_total_s": 0.05401357699884102,
+  "tempo_orquestracao_s": 0.05366421399230603,
+  "tempo_serializacao_master_s": 0.005542743994737975,
+  "tempo_socket_envio_master_s": 0.013287847003084607,
+  "tempo_socket_recebimento_master_s": 0.06248691599466838,
+  "tempo_deserializacao_master_s": 0.0003267359861638397,
+  "bytes_enviados_total": 6291892,
+  "bytes_recebidos_total": 2097920,
+  "vazao_envio_total_mb_s": 318.652548010617,
+  "vazao_recebimento_total_mb_s": 138.92241514506762,
+  "workers": [
+    {
+      "indice": 0,
+      "host": "172.31.21.176",
+      "porta": 5001,
+      "bytes_enviados": 3145946,
+      "bytes_recebidos": 1048960,
+      "tempo_serializacao_envio_s": 0.0031257929949788377,
+      "tempo_socket_envio_s": 0.0073428160103503615,
+      "tempo_espera_resposta_s": 0.032192270999075845,
+      "tempo_deserializacao_resposta_s": 0.00015306899149436504,
+      "tempo_recebimento_requisicao_s": 0.020936377011821605,
+      "tempo_deserializacao_requisicao_s": 0.00045849100570194423,
+      "tempo_calculo_s": 0.023863224996603094,
+      "tempo_serializacao_resposta_s": 0.0003074330015806481,
+      "tempo_envio_resposta_s": 0.008021613000892103,
+      "vazao_envio_mb_s": 286.5908832275307,
+      "vazao_retorno_mb_s": 120.10573727657507,
+      "tempo_comunicacao_pura_s": 0.03630080602306407
+    },
+    {
+      "indice": 1,
+      "host": "172.31.19.251",
+      "porta": 5001,
+      "bytes_enviados": 3145946,
+      "bytes_recebidos": 1048960,
+      "tempo_serializacao_envio_s": 0.0024169509997591376,
+      "tempo_socket_envio_s": 0.005945030992734246,
+      "tempo_espera_resposta_s": 0.030294644995592535,
+      "tempo_deserializacao_resposta_s": 0.00017366699466947466,
+      "tempo_recebimento_requisicao_s": 0.01210282399551943,
+      "tempo_deserializacao_requisicao_s": 0.0005261329934000969,
+      "tempo_calculo_s": 0.024221893996582367,
+      "tempo_serializacao_resposta_s": 0.00033414599602110684,
+      "tempo_envio_resposta_s": 0.005738605002989061,
+      "vazao_envio_mb_s": 358.79148073917,
+      "vazao_retorno_mb_s": 164.73031927384397,
+      "tempo_comunicacao_pura_s": 0.023786459991242737
+    }
+  ],
+  "recursos_master": {
+    "memoria_rss_mb": 49.9765625,
+    "delta_memoria_mb": 18.8828125,
+    "tempo_cpu_s": 0.16013074700000002,
+    "cpu_percent_amostra": 0.0
+  },
+  "sequencial": {
+    "tempo_total_s": 0.06172864000836853,
+    "tempo_multiplicacao_s": 0.06172511300246697,
+    "tempo_cpu_s": 0.061712917000000006,
+    "memoria_rss_mb": 5.90625
+  },
+  "speedup": 1.1428356246373583,
+  "eficiencia": 57.14178123186792,
+  "integridade_ok": true
+}
